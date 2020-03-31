@@ -3,8 +3,14 @@
 echo "How many files are in the current directory?"
 echo ""
 function loop {
-	read local input
-	local num_of_files=$(ls | wc -l)
+	read input
+	while ! [[ $input =~ ^[0-9]+$ ]]
+	do
+		echo Please input a number
+		read input
+	done
+
+	local num_of_files=$(ls -a| grep [^.$] | wc -l)
 	while [[ ! $input -eq $num_of_files ]]
 	do
 		if [[ $input -lt $num_of_files ]]
